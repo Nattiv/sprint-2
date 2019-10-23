@@ -1,0 +1,36 @@
+
+/* @font-face{
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+} */
+
+body {
+    background-color: rgb(228, 202, 202);
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    grid-gap: 30px;
+}
+
+.gallery>img {
+    background-color: rgb(58, 103, 133);
+    width: 190px;
+}
+
+.txt-add-section *{
+    /* display: flex; */
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.btn-add-txt *{
+   padding:30px 
+}
+
+#my-canvas{
+    width:500px;
+    height: 500px;
+    border: 2px solid darkblue;
+    margin:30px auto
+}
