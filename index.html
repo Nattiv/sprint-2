@@ -7,35 +7,34 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Meme Generator</title>
     <link rel="stylesheet" href="style/main.css">
+    <link rel="stylesheet" href="style/gallery.css">
 </head>
 
 <body onload="init()">
+    <nav>
+        <div class="logo">
+            <img src="img/logo/LOGO.png">
+        </div>
+        <ul class="links">
+            <li><a href="index.html">Gallery</a></li>
+            <li><a href="editor.html">Memes</a></li>
+            <li><a href="editor.html">About</a></li>
+        </ul>
+    </nav>
+    <div class="search-by-tag">
+        <input type="txt" placeholder="Enter search keyword"> funny Comic ...
+    </div>
 
     <h1> Gallery</h1>
-    <div class="txt-add-section">
-        <input type="txt" class="txt-input">
-        <button onclick="onChangeSize(this)" value="increase">Increase</button>
-        <span class="display-font-size">20</span>
-        <button onclick="onChangeSize(this)" value="decrease">Decrease</button>
-        <button onclick="onChangeYaxis(this)" value="up">up</button>
-        <span class="display-Y-axis"></span>
-        <button onclick="onChangeYaxis(this)" value="down">down</button>
-        <button onclick="onSwitchLine()">switch Line</button>
-
-    </div>
-    <div class="btn-add-txt">
-        <button onclick="onAddTxt()">Add</button>
-    </div>
-
-
     <main class="gallery">
     </main>
 
-    <canvas id="my-canvas"></canvas>
+    <footer>MEMEGEN</footer>
+    <script src="js/utils.js"></script>
 
     <script src="js/service-gallery.js"></script>
-
     <script src="js/gallery.js"></script>
+
 </body>
 
 </html>

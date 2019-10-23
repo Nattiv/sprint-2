@@ -1,0 +1,26 @@
+
+main{
+    display: flex;
+}
+
+#my-canvas{
+    width:500px;
+    height: 500px;
+    border: 2px solid darkblue;
+    margin:30px auto
+}
+
+.txt-add-section *{
+    /* display: flex; */
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.btn-add-txt *{
+   padding:30px 
+}
+
+.y *{
+padding: 20px;
+}
+

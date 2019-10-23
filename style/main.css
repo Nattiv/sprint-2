@@ -1,10 +1,9 @@
-
-/* @font-face{
-    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-} */
-
 body {
     background-color: rgb(228, 202, 202);
+}
+
+button {
+    cursor: pointer;
 }
 
 .gallery {
@@ -16,21 +15,41 @@ body {
 .gallery>img {
     background-color: rgb(58, 103, 133);
     width: 190px;
+    cursor: pointer;
 }
 
-.txt-add-section *{
-    /* display: flex; */
-    padding: 10px;
-    margin-bottom: 20px;
+/* ---NAV--- */
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    background-color: darkcyan;
 }
 
-.btn-add-txt *{
-   padding:30px 
+.links {
+    display: flex;
+    list-style: none;
+    justify-content: space-around;
 }
 
-#my-canvas{
-    width:500px;
-    height: 500px;
-    border: 2px solid darkblue;
-    margin:30px auto
+a {
+    display: block;
+    padding: 20px;
+    cursor: pointer;
+}
+
+.links * {}
+
+.logo img {
+    height: 50px;
+}
+
+/* ---Footer--- */
+
+footer {
+    background-color: darkcyan;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    padding: 30px;
 }

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Meme-generator</title>
+    <link rel="stylesheet" href="style/main.css">
+    <link rel="stylesheet" href="style/editor.css">
+</head>
+
+<body onload="init()">
+    <nav>
+        <div class="logo">
+            <img src="img/logo/LOGO.png">
+        </div>
+        <ul class="links">
+            <li><a href="index.html">Gallery</a></li>
+            <li><a href="editor.html">Memes</a></li>
+            <li><a href="editor.html">About</a></li>
+
+        </ul>
+    </nav>
+
+    <main>
+        <canvas id="my-canvas"></canvas>
+        <div class="txt-add-section">
+            <input type="txt" class="txt-input">
+            <button onclick="onChangeSize(this)" value="increase">Increase</button>
+            <span class="display-font-size">20</span>
+            <button onclick="onChangeSize(this)" value="decrease">Decrease</button>
+            <button onclick="onChangeYaxis(this)" value="up">up</button>
+            <span class="display-Y-axis"></span>
+            <button onclick="onChangeYaxis(this)" value="down">down</button>
+            <button onclick="onSwitchLine()">switch Line</button>
+            <select name="txt-align" class="text-align" onchange="onUpdategTxtAlign(this.value)">
+                <option value="center">center</option>
+                <option value="right">left</option>
+                <option value="left">right</option>
+            </select>
+            <p>choose fill color</p>
+            <input type="color" onchange="onUpdategFillColor(this.value)">
+            <p>choose stroke color</p>
+            <input type="color" onchange="onUpdategStrokeColor()">
+        </div>
+        <div class="btn-add-txt">
+            <button onclick="onAddTxt()">Add</button>
+        </div>
+    </main>
+
+    <div class="y">
+        <button onclick="onSaveMemeToStorage()">Save image</button>
+        <button><a href="#" class="btn" onclick="onDownloadImg(this)" download="my-img.jpg">Download Image</a></button>
+        <form action="" method="POST" enctype="multipart/form-data" onsubmit="onUploadImg(this, event)">
+            <input name="img" id="imgData" type="hidden" />
+            <button class="btn" type="submit">Share</button>
+            <div class="share-container"></div>
+
+        </form>
+    </div>
+    <footer>MEMEGEN</footer>
+
+    <script src="js/utils.js"></script>
+    <script src="js/service-editor.js"></script>
+    <script src="js/main-editor.js"></script>
+
+</body>
+
+</html>

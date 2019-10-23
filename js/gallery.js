@@ -1,36 +1,22 @@
 'use strict'
 
-var gCanvas = document.querySelector('#my-canvas')
-var gCtx = gCanvas.getContext('2d');
-var gFontSize = 20
-var gYaxis = 50
-var gImg
-var gIsSecondLine = false
-
+const KEY = 'img'
 
 function init() {
     // gImgs = getImgs()
-    displayFontSize()
+    // displayFontSize()
     renderImgs()
 }
 
 function renderImgs() {
-    var strHtmls = gImgs.map(img => `<img src=${img.url} onclick="onLoadImgtoEditor(${img.id})"> `)
-    document.querySelector('.gallery').innerHTML = strHtmls;
+    var strHtmls = gImgs.map(img => `<img src=${img.url} onclick="onLoadImgtoEditor(${img.id})">`)
+    document.querySelector('.gallery').innerHTML = strHtmls.join('');
 }
 
 function onLoadImgtoEditor(imgId) {
-    gImg = findImg(imgId);
-    loadImgToEditor(gImg.url);
-    // setTimeout(drawTxt, 200)
-}
-
-function loadImgToEditor(imgUrl) {
-    var img = new Image();
-    img.onload = function () {
-        gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
-    }
-    img.src = imgUrl
+    var img = findImg(imgId);
+    saveToStorage(KEY, img)
+    window.open('editor.html', '_blank');
 }
 
 function setTxt(txt) {
@@ -46,7 +32,7 @@ function drawTxt(txt) {
 
 function onAddTxt() {
     var txt = document.querySelector('.txt-input').value;
-    if (!gImg) return
+    if (!txt) return
     //TO DO: Modal choose img first
     addTxtToImgData(txt);
     //TO DO: create object txt
@@ -59,9 +45,9 @@ function onChangeSize(btn) {
     displayFontSize()
 }
 
-function displayFontSize() {
-    document.querySelector('.display-font-size').innerText = gFontSize;
-}
+// function displayFontSize() {
+//     document.querySelector('.display-font-size').innerText = gFontSize;
+// }
 
 function onChangeYaxis(btn) {
     if (btn.value === 'up') gYaxis--
@@ -70,9 +56,9 @@ function onChangeYaxis(btn) {
     displayYaxis(gYaxis)
 }
 
-function displayYaxis(gYaxis) {
-    document.querySelector('.display-Y-axis').innerText = gYaxis;
-}
+// function displayYaxis(gYaxis) {
+//     document.querySelector('.display-Y-axis').innerText = gYaxis;
+// }
 
 function onSwitchLine() {
     gIsSecondLine = true;
