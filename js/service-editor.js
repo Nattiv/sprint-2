@@ -1,25 +1,51 @@
 'use strict'
 
 var gMeme
-var idxTxt = 1
+
+var gTxtIdx = 1
 
 function getImgFromStorage() {
     return loadFromStorage(KEY_IMG)
 }
 
-
 function createMeme() {
     gMeme = {
-        selectedImgId: gImg.id,
-        selectedTxtIdx: idxTxt++,
+        selectedImgId: gImg.id,  //Delete
         txts: []
     }
+}
+
+function createTxt(txt) {
+    var txtObj = {
+        idx: gTxtIdx++,
+        line: txt,
+        size: gFontSize,
+        align: gTxtAlign,
+        fillColor: gFillColor,
+        strokeColor: gStrokeColor,
+        yPos: gYaxis
+    }
+    gMeme.txts.push(txtObj);
+    console.log(gMeme)
+    return txtObj
 }
 
 function addTxt(txt) {
     gMeme.txts.push(txt)
 }
 
+function removeLine() {
+    let idx = findIdx()
+    gMeme.txts.splice(idx, 1)
+    console.log(gMeme)
+    gCurrTxt = false
+    updateImg()
+}
+
+function findIdx() {
+    return gMeme.txts.findIndex(txt => txt.idx === gCurrTxt.idx)
+
+}
 
 //Share with FB
 function uploadImg(elForm, ev) {

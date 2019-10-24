@@ -1,5 +1,19 @@
+@font-face {
+    font-family: Montserrat;
+    src: url(/font/Montserrat-Regular.ttf);
+
+}
+
+/* @font-face {
+    font-family: myFirstFont;
+    src: url(sansation_light.woff);
+  } */
+
 body {
-    background-color: rgb(228, 202, 202);
+    margin:0px;
+    background-color: rgb(223, 222, 222);
+    font-size: 20px;
+    font-family: Montserrat;
 }
 
 button {
@@ -9,11 +23,11 @@ button {
 .gallery {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    grid-gap: 30px;
+    grid-gap: 9px;
+    padding-left: 15px;;
 }
 
 .gallery>img {
-    background-color: rgb(58, 103, 133);
     width: 190px;
     cursor: pointer;
 }
@@ -23,7 +37,8 @@ button {
 nav {
     display: flex;
     justify-content: space-between;
-    background-color: darkcyan;
+    align-items: center;
+    background-color: rgb(255, 115, 0);
 }
 
 .links {
@@ -36,6 +51,8 @@ a {
     display: block;
     padding: 20px;
     cursor: pointer;
+    text-decoration: none;
+    font-size: white;
 }
 
 .links * {}
@@ -47,9 +64,23 @@ a {
 /* ---Footer--- */
 
 footer {
-    background-color: darkcyan;
+    background-color: rgb(255, 115, 0);
     position: fixed;
     bottom: 0px;
     width: 100%;
-    padding: 30px;
+    padding: 5px;
+    text-align: center;
+    height: 105px;
 }
+
+footer h2{
+    margin-bottom: 0px;
+}
+/* @media only screen and (max-width: 800px) {
+    .main {
+        display: none;
+    }
+    body{
+        background: #000;
+    }
+  } */

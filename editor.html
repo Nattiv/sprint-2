@@ -17,49 +17,92 @@
         </div>
         <ul class="links">
             <li><a href="index.html">Gallery</a></li>
-            <li><a href="editor.html">Memes</a></li>
-            <li><a href="editor.html">About</a></li>
-
+            <li class="memes-link"><a href="editor.html">Memes</a></li>
+            <li class="about-link"><a href="editor.html">About</a></li>
         </ul>
     </nav>
+    <div>
+        <input class="txt-border">
+    </div>
 
-    <main>
-        <canvas id="my-canvas"></canvas>
-        <div class="txt-add-section">
+    <main class="main">
+        <canvas id="my-canvas" onclick="onCanvasclicked(event)" height="500" width="500">
+        </canvas>
+        <div class="txt-btns-section">
             <input type="txt" class="txt-input">
-            <button onclick="onChangeSize(this)" value="increase">Increase</button>
-            <span class="display-font-size">20</span>
-            <button onclick="onChangeSize(this)" value="decrease">Decrease</button>
-            <button onclick="onChangeYaxis(this)" value="up">up</button>
-            <span class="display-Y-axis"></span>
-            <button onclick="onChangeYaxis(this)" value="down">down</button>
-            <button onclick="onSwitchLine()">switch Line</button>
-            <select name="txt-align" class="text-align" onchange="onUpdategTxtAlign(this.value)">
-                <option value="center">center</option>
-                <option value="right">left</option>
-                <option value="left">right</option>
-            </select>
-            <p>choose fill color</p>
-            <input type="color" onchange="onUpdategFillColor(this.value)">
-            <p>choose stroke color</p>
-            <input type="color" onchange="onUpdategStrokeColor()">
-        </div>
-        <div class="btn-add-txt">
-            <button onclick="onAddTxt()">Add</button>
+            <button onclick="onAddTxt()" class="btn-add">Add</button>
+            <div class="text-up-down">
+                <img src="img/icons/arrow-alt-up.png" class="arrow-up" onclick="onChangeYaxis(this)" data-val="-">
+                <span class="display-Y-axis"></span>
+                <img src="img/icons/arrow-down.png" class="arrow-down" onclick="onChangeYaxis(this)" data-val="+">
+                <!-- <button onclick="onChangeYaxis(this)" value="up">up</button> -->
+                <!-- <button onclick="onChangeYaxis(this)" value="down">down</button> -->
+                <div class="delete-change-size-btns">
+                    <div>
+                        <img src="img/icons/trash.png" onclick="onDelete()" class="delete-icon">
+                    </div>
+                    <div>
+                        <img src="img/icons/increase font - icon.png" onclick="onChangeSize(this)"
+                        class="increase-decrease-font-icon" data-val="+">
+                        <span class="display-font-size">20</span>
+                        <img src="img/icons/decrease font - icon.png" onclick="onChangeSize(this)"
+                        class="increase-decrease-font-icon" data-val="-">
+                    </div>
+                </div>
+            </div>
+
+            <!-- <button onclick="onDelete()"> delete</button> -->
+            <!-- <button onclick="onChangeSize(this)" value="decrease">-</button> -->
+            <!-- <button onclick="onChangeSize(this)" value="increase">+</button> -->
+
+            <div class="text-align-line-pos">
+                <div>
+                    <p>Line Position</p>
+                    <select name="txt-align" class="text-align" onchange="onSwitchLine(this.value)">
+                        <option value="top">Top</option>
+                        <option value="center">Center</option>
+                        <option value="bottom">Bottom</option>
+                    </select>
+                </div>
+                <div>
+                    <p>Text Align</p>
+                    <select name="txt-align" class="text-align" onchange="onUpdategTxtAlign(this.value)">
+                        <option value="center">center</option>
+                        <option value="right">left</option>
+                        <option value="left">right</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="fill-color-section">
+                <div class="fill-color-section x">
+                    <p>Fill Color:</p>
+                    <input type="color" value="#fdffff" onchange="onUpdategFillColor(this.value)"
+                        class="fill-color color-input">
+                </div>
+                <div class="stroke-color-section">
+                    <p>Stroke Color:</p>
+                    <input type="color" onchange="onUpdategStrokeColor(this.value)" class="stroke-color color-input">
+                </div>
+            </div>
+
+            <div class="save-share-container">
+                <button onclick="onSaveMemeToStorage()">Save Meme</button>
+                <button><a href="#" class="btn" onclick="onDownloadImg(this)" download="my-img.jpg">Download
+                        Image</a></button>
+                <form action="" method="POST" enctype="multipart/form-data" onsubmit="onUploadImg(this, event)">
+                    <input name="img" id="imgData" type="hidden" />
+                    <button class="btn btn-share" type="submit">Share</button>
+                    <div class="share-container"></div>
+                </form>
+            </div>
         </div>
     </main>
 
-    <div class="y">
-        <button onclick="onSaveMemeToStorage()">Save image</button>
-        <button><a href="#" class="btn" onclick="onDownloadImg(this)" download="my-img.jpg">Download Image</a></button>
-        <form action="" method="POST" enctype="multipart/form-data" onsubmit="onUploadImg(this, event)">
-            <input name="img" id="imgData" type="hidden" />
-            <button class="btn" type="submit">Share</button>
-            <div class="share-container"></div>
-
-        </form>
-    </div>
-    <footer>MEMEGEN</footer>
+    <footer>
+        <h2>MEMEGEN</h2>
+        <p>All rights reserved 2019</p>
+    </footer>
 
     <script src="js/utils.js"></script>
     <script src="js/service-editor.js"></script>
