@@ -16,6 +16,7 @@ function createMeme() {
 }
 
 function createTxt(txt) {
+    console.log('gYaxis txt', gYaxis)
     var txtObj = {
         idx: gTxtIdx++,
         line: txt,
@@ -44,8 +45,9 @@ function removeLine() {
 
 function findIdx() {
     return gMeme.txts.findIndex(txt => txt.idx === gCurrTxt.idx)
-
 }
+
+
 
 //Share with FB
 function uploadImg(elForm, ev) {

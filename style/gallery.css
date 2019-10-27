@@ -1,8 +1,26 @@
 body {
-    background-color: rgb(228, 202, 202);
+    background-color: #e3e3e3;
 }
-.search-by-tag{
+
+.search-bar {
     display: flex;
+    background: #fff;
+    height: 100px;
+    padding-left: 30px;
+    align-items: center;
+}
+
+.search-bar-content {
+    display: flex;
+}
+
+.search-input {
+    width: 200px;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    margin-right: 70px;
+    font-size: 20px;
 }
 
 .gallery {
@@ -15,4 +33,3 @@ body {
     cursor: pointer;
     width: 100%;
 }
-

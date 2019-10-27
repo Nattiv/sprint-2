@@ -3,13 +3,14 @@ var KEY_IMG = 'img'
 var KEY_MEME = 'meme'
 var gCanvas = document.querySelector('#my-canvas')
 var gCtx = gCanvas.getContext('2d');
-var gFontSize = 40
-var gYaxis = 50
-var gImg
 var gTxtAlign = "center"
 var gFillColor = '#ffffff'
 var gStrokeColor = '#000000'
+var gFontSize = 40
+var gYaxis = getRect()
+var gImg
 var gCurrTxt
+var gIsYaxisChanged = false
 
 function init() {
     gImg = getImgFromStorage()
@@ -17,7 +18,8 @@ function init() {
     loadImgToEditor(gImg.url)
     displayFontSize()
     displayYaxis()
-    hideMemes()
+    displayTxtBorder()
+    addListener()
 }
 
 function loadImgToEditor(imgUrl) {
@@ -30,13 +32,13 @@ function loadImgToEditor(imgUrl) {
 
 function onAddTxt() {
     loadImgToEditor(gImg.url)
-    var input = document.querySelector('.txt-input');
-    var txt = input.value
-    if (!gImg || !txt) return;
+    var txt = document.querySelector('.txt-input').value;
+    if (!gImg) return;
+     checkIsOnTxt(gYaxis)
     var txtObj = checkIsNewTxt(txt)
     renderMeme(txtObj)
     gCurrTxt = false;
-    input.value = '';
+    //TO DO: jump a line automatically (top, bottom,center)
 }
 
 function checkIsNewTxt(txt) {
@@ -59,7 +61,6 @@ function renderMeme(txtObj) {
 function checkOtherTxts() {
     if (gMeme.txts.length === 1) return
     gMeme.txts.forEach(txt => {
-        uploadTxtPref(txt)
         drawTxt(txt)
     })
 }
@@ -68,19 +69,17 @@ function addTxtTogMeme(txt) {
     return createTxt(txt)
 }
 
-//TO DO: update evry style according the txtObj
+//TO DO: update every style according the txtObj
 function drawTxt(txtObj) {
-    gCtx.font = `bold ${gFontSize}px Impact`;
-    gCtx.fillStyle = gFillColor
-    gCtx.strokeStyle = gStrokeColor
-    gCtx.textAlign = gTxtAlign;
+    gCtx.font = `bold ${txtObj.size}px Impact`;
+    gCtx.fillStyle = txtObj.fillColor
+    gCtx.strokeStyle = txtObj.strokeColor
+    gCtx.textAlign = txtObj.align;
     gCtx.fillText(txtObj.line, (gCanvas.width / 2), txtObj.yPos);
     gCtx.strokeText(txtObj.line, (gCanvas.width / 2), txtObj.yPos);
 }
 
 function onChangeSize(img) {
-    console.log(img)
-    // debugger
     if (img.dataset.val === '+') gFontSize++
     else gFontSize--;
     displayFontSize()
@@ -93,11 +92,15 @@ function displayFontSize() {
 function onChangeYaxis(img) {
     if (img.dataset.val === '+') gYaxis--
     else gYaxis++;
+    // let height=     //TO DO: height is not intuitive
+    gIsYaxisChanged = true;
     displayYaxis(gYaxis)
+    displayTxtBorder()
+
 }
 
 function displayYaxis() {
-    document.querySelector('.display-Y-axis').innerText = gYaxis;
+    document.querySelector('.display-Y-axis').innerText = Math.floor(gYaxis);
 }
 
 function onSwitchLine(val) {
@@ -110,6 +113,9 @@ function onSwitchLine(val) {
     if (val === 'bottom') {
         gYaxis = 485;
     }
+    displayYaxis(gYaxis)
+    displayTxtBorder()
+    gIsYaxisChanged = true
 }
 
 function onUpdategTxtAlign(val) {
@@ -139,15 +145,16 @@ function onUploadImg(elForm, ev) {
 }
 
 function onCanvasclicked(ev) {
+    gIsYaxisChanged = true;
     var rect = gCanvas.getBoundingClientRect();
-    var x = ev.clientX - rect.left
     var y = ev.clientY - rect.top
-    checkClickOnTxt(y, ev)
-    console.log(x, y)
-    console.log(ev)
+    checkIsOnTxt(y)
+    gYaxis = y + gFontSize / 2
+    displayTxtBorder()
+    displayYaxis()
 }
 
-function checkClickOnTxt(y) {
+function checkIsOnTxt(y) {
     let txt = gMeme.txts.find((txt) => {
         return (
             y < txt.yPos + 5 &&
@@ -155,41 +162,58 @@ function checkClickOnTxt(y) {
         )
     })
     if (txt) {
-        uploadTxtPref(txt)
-        // drawTxtBgc(txt)
+        if(gIsYaxisChanged)uploadTxtPref(txt)
         y = txt.yPos - txt.size
-        displayTxtBorder(y)
         gCurrTxt = txt;
+    } else {
+        document.querySelector('.txt-input').value = '';
     }
 }
 
 function uploadTxtPref(txt) {
     document.querySelector('.txt-input').value = txt.line
-    document.querySelector('.fill-color').value = txt.fillColor
-    document.querySelector('.stroke-color').value = txt.strokeColor
     gFillColor = txt.fillColor;
+    document.querySelector('.fill-color').value = txt.fillColor
     gStrokeColor = txt.strokeColor
+    document.querySelector('.stroke-color').value = txt.strokeColor
+    gFontSize = txt.size
+    displayFontSize()
+    gTxtAlign = txt.align
+    document.querySelector('.text-align').value = txt.align
 }
 
-function displayTxtBorder(y) {
-    var rect = gCanvas.getBoundingClientRect();
+function displayTxtBorder() {
+    let top = getTop();
+    let left = getLeft()
     var elBorder = document.querySelector('.txt-border')
-    elBorder.style.top = (y + rect.top + 5) + 'px'
-    elBorder.style.display = 'block'
+    elBorder.style.top = top + "px"
+    elBorder.style.left = left + "px"
+    elBorder.style.width = gCanvas.maxWidth + "px"
+    elBorder.classList.remove('txt-border-off');
     removeBorder(elBorder)
+}
+
+
+function getRect() {
+    let rect = gCanvas.getBoundingClientRect()
+    return rect.top
+}
+
+function getTop() {
+    let rect = gCanvas.getBoundingClientRect()
+    return (gYaxis + rect.top - gFontSize + 6)
+}
+
+function getLeft() {
+    let rect = gCanvas.getBoundingClientRect()
+    return (rect.left)
 }
 
 function removeBorder(elBorder) {
     setTimeout(function () {
-        elBorder.style.display = 'none';
+        elBorder.classList.add('txt-border-off');
     }, 3000)
 }
-
-// function drawTxtBgc(txt) {
-//     gCtx.beginPath();
-//     gCtx.rect(0, txt.yPos - txt.size, gCanvas.width, txt.size);
-//     gCtx.stroke();
-// }
 
 function onDelete() {
     if (!gCurrTxt) alert('choose Line');
@@ -205,15 +229,8 @@ function updateImg() {
 }
 
 function renderImgs() {
-    loadImgToEditor(gImg.url)
-    setTimeout(
-        function () {
-            gMeme.txts.forEach(txt => {
-                drawTxt(txt)
-            })
-        }, 50
-    )
-
+    document.querySelector('.txt-input').value = ''
+    onAddTxt()
 }
 
 function onSaveMemeToStorage() {
@@ -224,6 +241,38 @@ function savegMemeToStorage() {
     saveToStorage(KEY_MEME, gMeme)
 }
 
-function hideMemes() {
-    document.querySelector('.memes-link').style.display = 'none'
+function addListener() {
+    var input = document.querySelector(".txt-input");
+    input.addEventListener("keyup", function (event) {
+        if (event.keyCode === 13) onAddTxt()
+    })
+}
+
+// <---Modal-Share--->
+function onToggleModal() {
+    var elModal = document.querySelector('.screen');
+    if (elModal.classList.contains('display')) {
+        elModal.classList.remove('display')
+    } else {
+        elModal.classList.add('display')
+    }
+}
+
+// <---Modal-Share--->
+
+function onToggleMenu() {
+    var elMenu = document.querySelector('.links')
+    var elCloseSign = document.querySelector('.close-menu')
+    var elHamburgerMenu = document.querySelector('.hamburger-menu')
+    if (elMenu.classList.contains('display-flex')) {
+        elMenu.classList.remove('display-flex');
+        elHamburgerMenu.classList.remove('hidden')
+        elCloseSign.classList.remove('display')
+    } else {
+        elMenu.classList.add('display-flex');
+        elCloseSign.classList.add('display')
+        elHamburgerMenu.classList.add('hidden')
+
+    }
+
 }

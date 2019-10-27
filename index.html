@@ -11,21 +11,27 @@
 </head>
 
 <body onload="init()">
+
     <nav>
         <div class="logo">
-            <img src="img/logo/LOGO.png">
+            <img src="img/logo/LOGO.png" class="logo">
         </div>
+        <img src="img/icons/hamburger-menu-2.png" class="hamburger-menu" onclick="onToggleMenu()">
+        <span class="close-menu" onclick="onToggleMenu()">&times;</span></br>
+
         <ul class="links">
-            <li><a href="index.html">Gallery</a></li>
             <li><a href="editor.html">Memes</a></li>
             <li><a href="editor.html">About</a></li>
         </ul>
     </nav>
-    <div class="search-by-tag">
-        <input type="txt" placeholder="Enter search keyword"> funny Comic ...
+
+    <div class="search-bar">
+        <div class="search-bar-content">
+            <input type="txt" placeholder="Enter search keyword" class="search-input"> 
+            <p>funny Comic ...</p>
+        </div>
     </div>
 
-    <h1> Gallery</h1>
     <main class="gallery">
     </main>
 

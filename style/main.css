@@ -1,7 +1,6 @@
 @font-face {
     font-family: Montserrat;
     src: url(/font/Montserrat-Regular.ttf);
-
 }
 
 /* @font-face {
@@ -10,7 +9,7 @@
   } */
 
 body {
-    margin:0px;
+    margin: 0px;
     background-color: rgb(223, 222, 222);
     font-size: 20px;
     font-family: Montserrat;
@@ -24,7 +23,8 @@ button {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
     grid-gap: 9px;
-    padding-left: 15px;;
+    padding-left: 15px;
+    ;
 }
 
 .gallery>img {
@@ -38,7 +38,19 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: rgb(255, 115, 0);
+    background-color: #ff7f00;
+    width: 100%;
+    height: 66px;
+    color: #fff;
+}
+
+.hamburger-menu {
+    width: 50px;
+    display: none;
+    position: absolute;
+    right: 0px;
+    background: none;
+    cursor: pointer;
 }
 
 .links {
@@ -53,34 +65,107 @@ a {
     cursor: pointer;
     text-decoration: none;
     font-size: white;
+    border: 1px solid white;
 }
 
-.links * {}
+a:visited {
+    color: white;
+}
 
 .logo img {
-    height: 50px;
+    height: 40px;
+}
+
+.close-menu {
+    display: none;
+    font-size: 50px;
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    transition: 0.4s all;
+}
+
+.close-menu:hover {
+    font-size: 55px;
+}
+
+.logo {
+    background: none;
 }
 
 /* ---Footer--- */
 
 footer {
-    background-color: rgb(255, 115, 0);
+    background-color: #ff7f00;
     position: fixed;
     bottom: 0px;
     width: 100%;
-    padding: 5px;
-    text-align: center;
-    height: 105px;
+    height: 160px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-footer h2{
+footer h2 {
     margin-bottom: 0px;
 }
-/* @media only screen and (max-width: 800px) {
-    .main {
+
+@media only screen and (max-width: 600px) {
+    .logo img {
+        height: 30px;
+        text-align: center;
+    }
+}
+
+/* ---Toggle-hamburger-menu--- */
+
+@media only screen and (max-width: 375px) {
+    .hamburger-menu {
+        display: block;
+    }
+    .links {
+        display: none;
+        /* display: flex; */
+        flex-direction: column;
+        position: fixed;
+        justify-content: space-around;
+        align-items: center;
+        top: 51px;
+        right: 0px;
+        height: 30vh;
+        width: 100vw;
+        background-color: #ff7f00;
+        z-index: 1;
+        padding: 0;
+        border-collapse: collapse;
+    }
+    .display-flex {
+        display: flex;
+    }
+    li {
+        width: 100%;
+    }
+    ul {
+        border-collapse: collapse;
+    }
+    a {
+        display: flex;
+        justify-content: center;
+        min-width: 100%;
+        min-height: 100%;
+        padding: 42px;
+        font-size: 20px;
+        transition: 0.3s all;
+    }
+    a:hover {
+        background: #F69F49
+    }
+    .display {
+        display: block;
+    }
+    .hidden {
         display: none;
     }
-    body{
-        background: #000;
-    }
-  } */
+}

@@ -11,60 +11,50 @@
 </head>
 
 <body onload="init()">
-    <nav>
+    <nav class=nav-bar>
         <div class="logo">
-            <img src="img/logo/LOGO.png">
+            <img src="img/logo/LOGO.png" class="logo">
         </div>
+        <img src="img/icons/hamburger-menu-2.png" class="hamburger-menu" onclick="onToggleMenu()">
+        <span class="close-menu" onclick="onToggleMenu()">&times;</span></br>
+
         <ul class="links">
             <li><a href="index.html">Gallery</a></li>
-            <li class="memes-link"><a href="editor.html">Memes</a></li>
             <li class="about-link"><a href="editor.html">About</a></li>
         </ul>
     </nav>
-    <div>
-        <input class="txt-border">
-    </div>
+
+    <input class="txt-border" disabled="disabled">
 
     <main class="main">
-        <canvas id="my-canvas" onclick="onCanvasclicked(event)" height="500" width="500">
+        <canvas id="my-canvas" onclick="onCanvasclicked(event)" height="450" width="450">
         </canvas>
         <div class="txt-btns-section">
-            <input type="txt" class="txt-input">
+            <input type="txt" class="txt-input" autofocus placeholder="Enter Text Here">
             <button onclick="onAddTxt()" class="btn-add">Add</button>
-            <div class="text-up-down">
-                <img src="img/icons/arrow-alt-up.png" class="arrow-up" onclick="onChangeYaxis(this)" data-val="-">
+
+            <div class="first-row">
+                <img src="img/icons/arrow-alt-up.png" class="arrow-up" onclick="onChangeYaxis(this)" data-val="+">
                 <span class="display-Y-axis"></span>
-                <img src="img/icons/arrow-down.png" class="arrow-down" onclick="onChangeYaxis(this)" data-val="+">
-                <!-- <button onclick="onChangeYaxis(this)" value="up">up</button> -->
-                <!-- <button onclick="onChangeYaxis(this)" value="down">down</button> -->
-                <div class="delete-change-size-btns">
-                    <div>
-                        <img src="img/icons/trash.png" onclick="onDelete()" class="delete-icon">
-                    </div>
-                    <div>
-                        <img src="img/icons/increase font - icon.png" onclick="onChangeSize(this)"
-                        class="increase-decrease-font-icon" data-val="+">
-                        <span class="display-font-size">20</span>
-                        <img src="img/icons/decrease font - icon.png" onclick="onChangeSize(this)"
-                        class="increase-decrease-font-icon" data-val="-">
-                    </div>
-                </div>
+                <img src="img/icons/arrow-down.png" class="arrow-down" onclick="onChangeYaxis(this)" data-val="-">
+                <img src="img/icons/trash.png" onclick="onDelete()" class="delete-icon">
+                <img src="img/icons/increase font - icon.png" onclick="onChangeSize(this)"
+                    class="increase-decrease-font-icon" data-val="+">
+                <span class="display-font-size">20</span>
+                <img src="img/icons/decrease font - icon.png" onclick="onChangeSize(this)"
+                    class="increase-decrease-font-icon" data-val="-">
             </div>
 
-            <!-- <button onclick="onDelete()"> delete</button> -->
-            <!-- <button onclick="onChangeSize(this)" value="decrease">-</button> -->
-            <!-- <button onclick="onChangeSize(this)" value="increase">+</button> -->
-
             <div class="text-align-line-pos">
-                <div>
+                <div class="select-line-pos">
                     <p>Line Position</p>
-                    <select name="txt-align" class="text-align" onchange="onSwitchLine(this.value)">
+                    <select name="txt-align" class="line-pos" onchange="onSwitchLine(this.value)">
                         <option value="top">Top</option>
                         <option value="center">Center</option>
                         <option value="bottom">Bottom</option>
                     </select>
                 </div>
-                <div>
+                <div class="text-align-line-pos">
                     <p>Text Align</p>
                     <select name="txt-align" class="text-align" onchange="onUpdategTxtAlign(this.value)">
                         <option value="center">center</option>
@@ -74,8 +64,8 @@
                 </div>
             </div>
 
-            <div class="fill-color-section">
-                <div class="fill-color-section x">
+            <div class="color-section">
+                <div>
                     <p>Fill Color:</p>
                     <input type="color" value="#fdffff" onchange="onUpdategFillColor(this.value)"
                         class="fill-color color-input">
@@ -85,7 +75,13 @@
                     <input type="color" onchange="onUpdategStrokeColor(this.value)" class="stroke-color color-input">
                 </div>
             </div>
+            <button onclick="onToggleModal()" class="btn-share-main">Share</button>
 
+    </main>
+
+    <div id="myModal" class="screen">
+        <div class="modal-content">
+            <span class="close" onclick="onToggleModal()">&times;</span></br>
             <div class="save-share-container">
                 <button onclick="onSaveMemeToStorage()">Save Meme</button>
                 <button><a href="#" class="btn" onclick="onDownloadImg(this)" download="my-img.jpg">Download
@@ -97,17 +93,24 @@
                 </form>
             </div>
         </div>
-    </main>
+    </div>
+    </div>
 
     <footer>
         <h2>MEMEGEN</h2>
         <p>All rights reserved 2019</p>
     </footer>
 
-    <script src="js/utils.js"></script>
+    <script src=" js/utils.js"> </script>
     <script src="js/service-editor.js"></script>
     <script src="js/main-editor.js"></script>
 
 </body>
 
 </html>
+
+<!-- <button onclick="onChangeYaxis(this)" value="down">down</button> -->
+<!-- <button onclick="onChangeYaxis(this)" value="up">up</button> -->
+<!-- <button onclick="onDelete()"> delete</button> -->
+<!-- <button onclick="onChangeSize(this)" value="decrease">-</button> -->
+<!-- <button onclick="onChangeSize(this)" value="increase">+</button> -->
